@@ -1,0 +1,47 @@
+/* Stylizacja panelu administracyjnego */
+.admin-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f8ff;
+    color: #333;
+    font-family: 'Arial', sans-serif;
+    padding: 20px;
+    text-align: center;
+}
+
+.admin-container h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.admin-container input {
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.admin-container button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.admin-container button:hover {
+    background-color: #0056b3;
+}
+
+.admin-container p {
+    font-size: 1rem;
+    color: #d9534f;
+}

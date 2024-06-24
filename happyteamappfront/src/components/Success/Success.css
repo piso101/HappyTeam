@@ -1,0 +1,46 @@
+.success-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    /* Pełna wysokość okna przeglądarki */
+    background-color: #f0f8ff;
+    /* Jasnoniebieskie tło */
+    color: #333;
+    /* Kolor tekstu */
+    font-family: 'Arial', sans-serif;
+    /* Czcionka */
+    padding: 20px;
+    text-align: center;
+}
+
+.success-container h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #28a745;
+    /* Zielony kolor tekstu */
+}
+
+.success-container p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.success-button {
+    background-color: #28a745;
+    /* Zielony kolor tła przycisku */
+    color: white;
+    /* Kolor tekstu przycisku */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.success-button:hover {
+    background-color: #218838;
+    /* Ciemniejszy zielony kolor przycisku po najechaniu */
+}
