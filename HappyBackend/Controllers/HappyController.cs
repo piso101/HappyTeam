@@ -20,6 +20,12 @@ namespace HappyBackend.Controllers
     [ApiController]
     public class HappyController : ControllerBase
     {
+        /// <summary>
+        /// Get all Units
+        /// </summary>
+        /// <returns>
+        /// List of all Units in database
+        /// </returns>
         [HttpGet("Units")]
         public IEnumerable<Unit> GetUnits()
         {
@@ -27,12 +33,30 @@ namespace HappyBackend.Controllers
             return HappyTeslaRepository.Units;
         }
 
+        /// <summary>
+        /// Get all Cars in one Unit from database
+        /// </summary>
+        /// <param name="dateBegin">Date of beginning of the rental</param>
+        /// <param name="dateEnd">Date of end of the rental</param>
+        /// <param name="UnitName">Name of the Unit</param>
+        /// <returns>
+        /// List of all Cars in one Unit
+        /// </returns>
         [HttpGet("GetAvailableCars")]
         public IEnumerable<Car> GetAvailableCars(string UnitName, DateTime dateBegin, DateTime dateEnd)
         {
             HappyTeslaRepository.LoadData();
             return HappyDataHelper.GetAvailableCars(UnitName, dateBegin, dateEnd);
         }
+
+        /// <summary>
+        /// Send an email to the user with a verification link
+        /// </summary>
+        /// <param name="request">EmailAuthModel object</param>
+        /// <returns>
+        /// OK if the email was sent successfully
+        /// BadRequest if the car was not found in the database
+        /// </returns>
         [HttpPost("EmailVer")]
         public IActionResult SendEmail([FromBody] EmailAuthModel request)
         {
@@ -61,6 +85,19 @@ namespace HappyBackend.Controllers
 
             return Ok();
         }
+
+        /// <summary>
+        /// Verify user's Order by token and carId
+        /// </summary> 
+        /// <param name="carId" >Id of the car</param>
+        /// <param name="token">Token of the user</param>
+        /// <returns>
+        /// Ok if the order was verified
+        /// BadRequest if the token is empty or the user is not found in the database
+        /// BadRequest if the token is invalid or expired
+        /// BadRequest if the order is already verified
+        /// BadRequest if the order is not found in the database
+        /// </returns>
         [HttpGet("Verify")]
         public IActionResult Verify(string token, string carId)
         {
@@ -89,7 +126,18 @@ namespace HappyBackend.Controllers
 
             return BadRequest(new { success = false });
         }
+
         // Admin panel
+        /// <summary>
+        /// Login for Admin panel
+        /// Creates a jwt token for the Admin
+        /// </summary>
+        /// <param name="login">Login for Admin</param>
+        /// <param name="password">Password for Admin</param>
+        /// <returns>
+        /// Unauthorized if the login or password is incorrect
+        /// Ok and token if the login and password are correct
+        /// </returns>
         [HttpGet("AdminLogin")]
         public IActionResult AdminLogin(string login, string password)
         {
@@ -115,6 +163,15 @@ namespace HappyBackend.Controllers
 
             return Unauthorized();
         }
+
+        /// <summary>
+        /// Cleans unverified data from the database
+        /// </summary>
+        /// <param name="token">Token aquired while logging in, for Admin</param>
+        /// <returns>
+        /// Unauthorized if the token is invalid
+        /// Ok if the data was cleaned successfully and token is valid
+        /// </returns>
         [HttpGet("CleanUnVerified")]
         public IActionResult CleanUnVerifiedData(string token)
         {
@@ -125,6 +182,15 @@ namespace HappyBackend.Controllers
             return Ok();
 
         }
+
+        /// <summary>
+        /// Cleanold data from the database
+        /// </summary>
+        /// <param name="token">Token aquired while logging in, for Admin</param>
+        /// <returns>
+        /// Unauthorized if the token is invalid
+        /// Ok if the data was cleaned successfully and token is valid
+        /// </returns>
         [HttpGet("CleanOldData")]
         public IActionResult CleanOldData(string token)
         {
@@ -134,6 +200,20 @@ namespace HappyBackend.Controllers
             HappyDataHelper.PurgeOldData();
             return Ok();
         }
+
+        /// <summary>
+        /// Clean car data from order if returned.
+        /// </summary>
+        /// <example>
+        /// Car has returned to the unit, worker scans the car and the order is removed from the database.
+        /// </example>
+        /// <param name="CarId">Id of the car</param>
+        /// <param name="token">Token aquired while logging in, for Admin</param>
+        /// <returns>
+        /// Unauthorized if the token is invalid
+        /// Ok if the data was cleaned successfully and token is valid
+        /// BadRequest if the car is not found in the database
+        /// </returns>
         [HttpGet("CarReturned")]
         public IActionResult CarReturned(string token, string CarId)
         {

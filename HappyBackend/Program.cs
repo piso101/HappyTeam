@@ -45,8 +45,6 @@ namespace HappyBackend
             // Add IP rate limiting middleware
             builder.Services.AddInMemoryRateLimiting();
             
-
-
             // Add Swagger services
             builder.Services.AddSwaggerGen(c =>
             {
@@ -74,11 +72,8 @@ namespace HappyBackend
             {
                 app.UseDeveloperExceptionPage();
 
-                // Enable middleware to serve generated Swagger as a JSON endpoint.
                 app.UseSwagger();
 
-                // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
-                // specifying the Swagger JSON endpoint.
                 app.UseSwaggerUI(c =>
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Happy API V1");

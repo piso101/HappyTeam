@@ -10,6 +10,16 @@ namespace HappyBackend.Helpers
 {
     public static class HappyDataHelper
     {
+
+        /// <summary>
+        /// Get all cars in one unit from database
+        /// </summary>
+        /// <param name="dateBegin">Date of beginning of the rental</param>
+        /// <param name="dateEnd">Date of end of the rental</param>
+        /// <param name="UnitName">Name of the unit</param>
+        /// <returns>
+        /// List of all cars in one unit
+        /// </returns>
         public static List<Car> GetAvailableCars(string UnitName, DateTime dateBegin, DateTime dateEnd)
         {
             
@@ -32,14 +42,36 @@ namespace HappyBackend.Helpers
                 .Where(car => car.UnitId == UnitId && !unavailableCarIds.Contains(car.Id))
                 .ToList();
         }
+
+        /// <summary>
+        /// Checks if the user is in the database
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns>
+        /// true if the user is in the database
+        /// false if the user is not in the database
+        /// </returns>
         public static bool CheckIfUserIsInDataBase(User user)
         {
             return HappyTeslaRepository.Users.Exists(u => u.Email == user.Email);
         }
+
+        /// <summary>
+        /// Checks if the car is in the database
+        /// </summary>
+        /// <param name="car"></param>
+        /// <returns>
+        /// true if the car is in the database
+        /// false if the car is not in the database
+        /// </returns>
         public static bool CheckIfCarIsInDataBase(Car car)
         {
             return HappyTeslaRepository.Cars.Contains(car);
         }
+
+        /// <summary>
+        /// Purge unverified data
+        /// </summary>
         public static void PurgeUnverifiedData()
         {
             var unverifiedOrders = HappyTeslaRepository.Orders
@@ -51,6 +83,10 @@ namespace HappyBackend.Helpers
                 HappyTeslaRepository.Orders.Remove(order);
             }
         }
+
+        /// <summary>
+        /// Purge old data
+        /// </summary>
         public static void PurgeOldData()
         {
             var ordersToRemove = HappyTeslaRepository.Orders
@@ -62,6 +98,15 @@ namespace HappyBackend.Helpers
                 HappyTeslaRepository.Orders.Remove(order);
             }
         }
+
+        /// <summary>
+        /// Check if the token is Genuine
+        /// </summary>
+        /// <param name="keyToCheck">key to check</param>
+        /// <returns>
+        /// true if the token is genuine
+        /// false if the token is not genuine
+        /// </returns>
         public static bool IsAuthorized(string keyToCheck)
         {
             var tokenHandler = new JwtSecurityTokenHandler();

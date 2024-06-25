@@ -7,6 +7,12 @@ namespace HappyBackend.Services
 {
     public static class ConfirmationEmailService
     {
+        /// <summary>
+        /// Sends a confirmation email to the user's email address
+        /// </summary>
+        /// <param name="user">user object to get information about client</param>
+        /// <param name="car">car object to get information about car client is trying to rent</param>
+        /// <param name="order">order object to get information about date's and unit's involved</param>
         public static void SendConfirmationEmail(User user, Car car,Order order)
         {
             var confirmationLink = $"http://localhost:3000/Verify?token={user.Token}&carId={car.Id}";

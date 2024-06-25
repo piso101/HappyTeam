@@ -16,7 +16,13 @@ namespace HappyBackEnd.Repository
         public static List<Unit> Units { get; set; }
         public static List<User> Users { get; set; }
         public static List<Order> Orders { get; set; }
-        
+
+        /// <summary>
+        /// keyvalue pair for admin login and password from appsettings.json
+        /// </summary>
+        /// <returns>
+        /// login and password for admin
+        /// </returns>
         public static KeyValuePair<string,string> keyValuePair()
         {
             IConfiguration configuration = new ConfigurationBuilder()
@@ -26,6 +32,11 @@ namespace HappyBackEnd.Repository
             KeyValuePair<string,string> temp = new KeyValuePair<string, string>(configuration.GetSection("AppSettings")["Login"], configuration.GetSection("AppSettings")["Password"]);
             return temp;
         }
+
+        /// <summary>
+        /// Get the key for the token from appsettings.json
+        /// </summary>
+        /// <returns>key</returns>
         public static string Key ()
         {
             IConfiguration configuration = new ConfigurationBuilder()
@@ -35,6 +46,11 @@ namespace HappyBackEnd.Repository
             string key = configuration.GetSection("AppSettings")["Token"];
             return key;
         }
+
+        /// <summary>
+        /// Get the connection url from appsettings.json
+        /// </summary>
+        /// <returns>Database Url</returns>
         private static string _connectionUrl()
         {
             IConfiguration configuration = new ConfigurationBuilder()
@@ -45,7 +61,9 @@ namespace HappyBackEnd.Repository
             return Url;
         }
 
-
+        /// <summary>
+        /// Loads data from the database
+        /// </summary>
         public static void LoadData()
         {
             var settings = MongoClientSettings.FromConnectionString(_connectionUrl());
@@ -75,7 +93,9 @@ namespace HappyBackEnd.Repository
             }
         }
 
-
+        /// <summary>
+        /// Modify data in the database from the repository
+        /// </summary>
         public static void ModifyData()
         {
             var settings = MongoClientSettings.FromConnectionString(_connectionUrl());
