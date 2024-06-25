@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './DetailsPopUp.css';
+import config from '../../config';
 
 const DetailsPopup = ({ car, startUnit, endUnit, beginDate, endDate, onClose }) => {
     const [firstName, setFirstName] = useState('');
@@ -7,7 +8,6 @@ const DetailsPopup = ({ car, startUnit, endUnit, beginDate, endDate, onClose }) 
     const [email, setEmail] = useState('');
     const [error, setError] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
-
 
     const handleSubmit = async () => {
         if (!firstName || !lastName || !email) {
@@ -48,7 +48,7 @@ const DetailsPopup = ({ car, startUnit, endUnit, beginDate, endDate, onClose }) 
         console.log('Request Body:', JSON.stringify(requestBody, null, 2));
 
         try {
-            const response = await fetch('http://localhost:5146/api/Happy/EmailVer', {
+            const response = await fetch(`${config.apiBaseUrl}/api/Happy/EmailVer`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': "application/json",
@@ -62,13 +62,15 @@ const DetailsPopup = ({ car, startUnit, endUnit, beginDate, endDate, onClose }) 
                 throw new Error('Network response was not ok ' + response.statusText);
             }
 
-            const result = await response.json();
+
             setSuccessMessage('Check your email for verification details.');
             setError('');
-            console.log('Success:', result);
+
 
         } catch (error) {
-
+            setError('An error occurred while submitting the form.');
+            setSuccessMessage('');
+            console.error('Error:', error);
         }
     };
 

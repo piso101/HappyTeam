@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './AvailableCars.css';
 import DetailsPopup from '../DetailsPopUp/DetailsPopUp';
+import config from '../../config';
 
 const AvailableCars = ({ unitName, endUnitName, startDate, endDate }) => {
     const [cars, setCars] = useState([]);
@@ -11,7 +12,7 @@ const AvailableCars = ({ unitName, endUnitName, startDate, endDate }) => {
     useEffect(() => {
         if (unitName && startDate && endDate) {
             console.log("Fetching cars for:", unitName, startDate, endDate);
-            fetch(`http://localhost:5146/api/Happy/GetAvailableCars?UnitName=${unitName}&dateBegin=${startDate.toISOString()}&dateEnd=${endDate.toISOString()}`)
+            fetch(`${config.apiBaseUrl}/api/Happy/GetAvailableCars?UnitName=${unitName}&dateBegin=${startDate.toISOString()}&dateEnd=${endDate.toISOString()}`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok ' + response.statusText);

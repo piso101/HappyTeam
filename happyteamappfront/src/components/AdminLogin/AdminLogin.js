@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './AdminLogin.css';
+import config from '../../config';
 
 const AdminLogin = ({ setToken }) => {
     const [login, setLogin] = useState('');
@@ -10,7 +11,7 @@ const AdminLogin = ({ setToken }) => {
 
     const handleLogin = async () => {
         try {
-            const response = await fetch(`http://localhost:5146/api/Happy/AdminLogin?login=${login}&password=${password}`, {
+            const response = await fetch(`${config.apiBaseUrl}/api/Happy/AdminLogin?login=${login}&password=${password}`, {
                 method: 'GET'
             });
             if (!response.ok) {

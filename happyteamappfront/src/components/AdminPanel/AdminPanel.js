@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './AdminPanel.css';
+import config from '../../config';
+
 
 const AdminPanel = ({ token }) => {
     const [message, setMessage] = useState('');
@@ -9,14 +11,14 @@ const AdminPanel = ({ token }) => {
             let url;
             switch (action) {
                 case 'CleanUnVerified':
-                    url = `http://localhost:5146/api/Happy/CleanUnVerified?token=${token}`;
+                    url = `${config.apiBaseUrl}/api/Happy/CleanUnVerified?token=${token}`;
                     break;
                 case 'CleanOldData':
-                    url = `http://localhost:5146/api/Happy/CleanOldData?token=${token}`;
+                    url = `${config.apiBaseUrl}/api/Happy/CleanOldData?token=${token}`;
                     break;
                 case 'CarReturned':
                     const carId = prompt('Enter Car ID:');
-                    url = `http://localhost:5146/api/Happy/CarReturned?token=${token}&CarId=${carId}`;
+                    url = `${config.apiBaseUrl}/api/Happy/CarReturned?token=${token}&CarId=${carId}`;
                     break;
                 default:
                     return;

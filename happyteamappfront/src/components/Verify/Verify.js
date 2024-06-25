@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import config from '../../config';
+
+
 
 const Verify = () => {
     const location = useLocation();
@@ -14,7 +17,7 @@ const Verify = () => {
 
         if (token && carId) {
             console.log("Verifying token and carId:", token, carId);
-            fetch(`http://localhost:5146/api/Happy/Verify?token=${token}&carId=${carId}`, {
+            fetch(`${config.apiBaseUrl}/api/Happy/Verify?token=${token}&carId=${carId}`, {
                 method: 'GET',
             })
                 .then(response => {
@@ -27,7 +30,9 @@ const Verify = () => {
                     console.log("Verification result:", data);
                     if (data.success) {
                         navigate('/success');
+                        setVerificationStatus('Verification successful');
                     } else {
+                        setVerificationStatus('Verification failed');
                         navigate('/error');
                     }
                 })

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import DateChooser from '../DateChooser/DateChooser.js';
 import AvailableCars from '../AvailableCars/AvailableCars';
 import './UnitComboBoxes.css';
+import config from '../../config';
 
 const UnitsComponent = () => {
     const [units, setUnits] = useState([]);
@@ -13,7 +14,7 @@ const UnitsComponent = () => {
     const [endDate, setEndDate] = useState(null);
 
     useEffect(() => {
-        fetch('http://localhost:5146/api/Happy/Units')
+        fetch(`${config.apiBaseUrl}/api/Happy/Units`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok ' + response.statusText);
