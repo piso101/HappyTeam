@@ -32,7 +32,7 @@ To deploy this project locally:
     ```
     The frontend will be available at [http://localhost:3000](http://localhost:3000).
 
-    The frontend and a simple admin panel are available at [http://localhost:3000/admin](http://localhost:3000/admin).
+    The frontend of a simple admin panel is available at [http://localhost:3000/admin](http://localhost:3000/admin).
 
     The login credentials are:
     - **Password:** HappyAdmin
